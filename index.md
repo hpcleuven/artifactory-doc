@@ -7,4 +7,5 @@ nav_order: 1
 
 This website describes how KULeuven users may employ the Artifactory service.
 
-To get started, have a look at the [FAQ](./faq).
+To get started, have a look at the [FAQ](./faq) and go through the
+[Examples](./examples).
