@@ -7,7 +7,7 @@ nav_order: 3
 
 To visit the online platform, browse to [https://rdmrepo.q.icts.kuleuven.be/ui/login/](
 https://rdmrepo.q.icts.kuleuven.be/ui/login/) and sign in with your KULeuven
-credentials via the SAML single single-on button.
+credentials via the SAML single-on button.
 
 ### Repositories
 
