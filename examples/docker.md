@@ -57,3 +57,7 @@ e.g.:
 ```
 singularity exec myimage_latest.sif echo "Hello, World"
 ```
+
+> **_NOTE:_**  Artifactory does not currently support Singularity registries.
+  If you want to get Singularity image files into Artifactory, you will need
+  to use a [Generic repository](./generic) instead.
