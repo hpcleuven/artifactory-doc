@@ -21,12 +21,12 @@ myimage                                               latest     ee7033aa2ab2   
 To upload this image to Artifactory:
 ```
 docker login registry.ARTIFACTORY-URL -u USERNAME -p API-KEY
-docker tag myimage registry.ARTIFACTORY-URL/GROUPNAME/myimage
-docker push registry.ARTIFACTORY-URL/GROUPNAME/myimage
+docker tag myimage registry.ARTIFACTORY-URL/NAMESPACE/myimage
+docker push registry.ARTIFACTORY-URL/NAMESPACE/myimage
 ```
 and for downloading:
 ```
-docker pull registry.ARTIFACTORY-URL/GROUPNAME/myimage
+docker pull registry.ARTIFACTORY-URL/NAMESPACE/myimage
 ```
 
 
@@ -49,7 +49,7 @@ mkdir -p $SINGULARITY_CACHEDIR $SINGULARITY_TMPDIR
 you can convert your remote Docker image to a local Singularity image (which
 will here be named `myimage_latest.sif`):
 ```
-singularity pull --docker-login docker://registry.ARTIFACTORY-URL/GROUPNAME/myimage
+singularity pull --docker-login docker://registry.ARTIFACTORY-URL/NAMESPACE/myimage
 ```
 This will again prompt you for a USERNAME and API-KEY. You can now start
 containers (also in your compute jobs) to execute your application of choice,

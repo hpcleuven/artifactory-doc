@@ -13,7 +13,9 @@ and make use of the following conventions:
 
 * API-KEY: a valid API key (see the [Platform](../platform) page)
 * USERNAME: your u-account (`u0xxxxxx`)
-* GROUPNAME: name of the Artifactory group associated with your account
+* NAMESPACE: namespaces are used in certain repositories to distinguish
+  between different user groups. Valid NAMESPACEs then correspond to the
+  name(s) of the Artifactory group(s) associated with your account.
 * ARTIFACTORY-URL: the KULeuven Artifactory main page (i.e.
   `rdmrepo.q.icts.kuleuven.be`)
 * REPOSITORY-NAME: the name of an Artifactory repository (of the relevant
