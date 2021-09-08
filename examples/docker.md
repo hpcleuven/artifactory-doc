@@ -30,6 +30,20 @@ docker pull registry.ARTIFACTORY-URL/NAMESPACE/myimage
 ```
 
 
+### Dockerhub
+
+When repeatedly pulling the same images from [Dockerhub](
+https://hub.docker.com/), there is an advantage in using the Dockerhub mirror
+in Artifactory instead. It will act as a local cache, allowing you to
+avoid [Dockerhub's rate limitations](https://www.docker.com/increase-rate-limits)
+and (hopefully) providing higher download speeds as well.
+
+To e.g. pull a `python:3.8-slim` image from Dockerhub via the mirror:
+```
+docker pull dockerhub.ARTIFACTORY-URL/python:3.8-slim
+```
+
+
 ### Containers on HPC with Singularity
 
 Due to the need for superuser privileges, Docker can typically not be used on
