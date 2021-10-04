@@ -1,5 +1,5 @@
 ---
-title: Conda registries
+title: Conda Repositories
 parent: Examples
 nav_order: 3
 ---
