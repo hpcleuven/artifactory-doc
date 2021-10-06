@@ -16,7 +16,7 @@ and make use of the following conventions:
 * NAMESPACE: namespaces are used in certain repositories to distinguish
   between different user groups. Valid NAMESPACEs then correspond to the
   name(s) of the Artifactory group(s) associated with your account.
-* ARTIFACTORY-URL: the KULeuven Artifactory main page (i.e.
+* ARTIFACTORY-URL: the KU Leuven Artifactory main page (i.e.
   `rdmrepo.q.icts.kuleuven.be`)
 * REPOSITORY-NAME: the name of an Artifactory repository (of the relevant
   type) to which you have access.
