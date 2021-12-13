@@ -65,9 +65,12 @@ will here be named `myimage_latest.sif`):
 ```
 singularity pull --docker-login docker://registry.ARTIFACTORY-URL/NAMESPACE/myimage
 ```
-This will again prompt you for a USERNAME and API-KEY. You can now start
-containers (also in your compute jobs) to execute your application of choice,
-e.g.:
+This will again prompt you for a USERNAME and API-KEY. You may also specify
+these by setting and exporting the corresponding `SINGULARITY_DOCKER_USERNAME`
+and `SINGULARITY_DOCKER_PASSWORD` environment variables.
+
+You can now start containers (also in your compute jobs) to execute your
+application of choice, e.g.:
 ```
 singularity exec myimage_latest.sif echo "Hello, World"
 ```
