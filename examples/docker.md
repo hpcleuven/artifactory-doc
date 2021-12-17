@@ -78,7 +78,7 @@ docker pull registry.rdmrepo.icts.kuleuven.be/NAMESPACE/myimage:1.0
 
 > **_NOTE:_** A similar version control approach could also be applied when
   building Docker images in an interactive manner (without Dockerfiles).
-  However, for reasons of clarity and reproducibility, we strongly recommend
+  However, for reasons of clarity and reproducibility we strongly recommend
   to build from Dockerfiles.
 
 
