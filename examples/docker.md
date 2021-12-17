@@ -30,6 +30,58 @@ docker pull registry.ARTIFACTORY-URL/NAMESPACE/myimage
 ```
 
 
+### Version control
+
+We recommend to keep track of your Docker image versions by:
+* including the corresponding [Dockerfile](
+  https://docs.docker.com/develop/develop-images/dockerfile_best-practices/)
+  in a git repository,
+* adding the (short) commit hash as a tag when building new images,
+* marking specific revisions with release tags.
+
+To this end, you may want to use a Makefile of the following kind:
+```make
+REGISTRY := registry.rdmrepo.icts.kuleuven.be
+IMAGE := ${REGISTRY}/NAMESPACE/myimage
+HASH := $$(git rev-parse --short HEAD)
+
+build:
+	@docker build -t ${IMAGE}:${HASH} .
+	@docker tag ${IMAGE}:${HASH} ${IMAGE}:latest
+
+release: build
+	@git tag ${VERSION}
+	@docker tag ${IMAGE}:${HASH} ${IMAGE}:${VERSION}
+
+login:
+	@docker login ${REGISTRY}
+
+push:
+	@docker push --all-tags ${IMAGE}
+
+help:
+	@echo 'Example arguments to the make command:'
+	@echo '  help                  # prints this help message'
+	@echo '  build                 # builds the image and tags it with the last'
+	@echo '                        # commit hash and with the "latest" tag'
+	@echo '  release VERSION=1.0   # builds the "build" target and adds the'
+	@echo '                        # version string as a git tag and image tag.'
+	@echo '  login                 # performs a Docker login to our registry'
+	@echo '  push                  # pushes all image tags to the registry'
+```
+
+You can then pull specific versions as follows:
+```
+docker pull registry.rdmrepo.icts.kuleuven.be/NAMESPACE/myimage:ed4f506
+docker pull registry.rdmrepo.icts.kuleuven.be/NAMESPACE/myimage:1.0
+```
+
+> **_NOTE:_** A similar version control approach could also be applied when
+  building Docker images in an interactive manner (without Dockerfiles).
+  However, for reasons of clarity and reproducibility, we strongly recommend
+  to build from Dockerfiles.
+
+
 ### Dockerhub
 
 When repeatedly pulling the same images from [Dockerhub](
