@@ -70,9 +70,13 @@ help:
 	@echo '  push                  # pushes all image tags to the registry'
 ```
 
-You can then pull specific versions as follows:
+After pushing your image to Artifactory with e.g. `make build login push`,
+you can then pull specific versions by appending the corresponding commit hash,
 ```
 docker pull registry.rdmrepo.icts.kuleuven.be/NAMESPACE/myimage:ed4f506
+```
+or the corresponding release tag (if defined via `make release VERSION=...`):
+```
 docker pull registry.rdmrepo.icts.kuleuven.be/NAMESPACE/myimage:1.0
 ```
 
