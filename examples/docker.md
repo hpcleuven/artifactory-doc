@@ -8,7 +8,7 @@ With Artifactory, you can access your own Docker registry for storing and
 updating your Docker images and sharing them within your research group.
 
 The following example assumes that you have Docker installed on your local
-computer and have build (or pulled) at least one Docker image, which will
+computer and have built (or pulled) at least one Docker image, which will
 here be named `myimage`:
 ```
 docker image ls
@@ -18,26 +18,43 @@ REPOSITORY                                            TAG        IMAGE ID       
 myimage                                               latest     ee7033aa2ab2   1 week ago   80.3MB
 ```
 
-To upload this image to Artifactory:
+Before uploading to Artifactory, you will need to add tags referring to the
+registry as well as the version of your image, e.g.:
 ```
-docker login registry.ARTIFACTORY-URL -u USERNAME -p API-KEY
-docker tag myimage registry.ARTIFACTORY-URL/NAMESPACE/myimage
-docker push registry.ARTIFACTORY-URL/NAMESPACE/myimage
+docker tag myimage registry.rdmrepo.icts.kuleuven.be/NAMESPACE/myimage:latest
+docker tag myimage registry.rdmrepo.icts.kuleuven.be/NAMESPACE/myimage:1.0
 ```
-and for downloading:
+To upload the tagged images to Artifactory:
 ```
-docker pull registry.ARTIFACTORY-URL/NAMESPACE/myimage
-```
+docker login registry.rdmrepo.icts.kuleuven.be -u USERNAME -p API-KEY
 
+docker push registry.rdmrepo.icts.kuleuven.be/NAMESPACE/myimage:latest
+docker push registry.rdmrepo.icts.kuleuven.be/NAMESPACE/myimage:1.0
+# or:
+docker push --all-tags registry.rdmrepo.icts.kuleuven.be/NAMESPACE/myimage
+```
+To download a specific version:
+```
+docker pull registry.rdmrepo.icts.kuleuven.be/NAMESPACE/myimage:1.0
+```
 
 ### Version control
 
-We recommend to keep track of your Docker image versions by:
-* including the corresponding [Dockerfile](
+It is essential to assign different tags to different versions of your image,
+because Artifactory by itself does not provide version control.
+
+If you would only use the default `latest` tag, then uploading a new image
+to Artifactory will effectively overwrite the prior `latest` image in
+Artifactory. By adding more specific "release" tags (e.g. `1.0`, `1.1`, ...)
+the `latest` image will get overwritten upon uploading (which is fine)
+while you retain access to the images with the "release" tags.
+
+In addition to the above, you can apply more advanced version control by:
+* always building from a [Dockerfile](
   https://docs.docker.com/develop/develop-images/dockerfile_best-practices/)
-  in a git repository,
-* adding the (short) commit hash as a tag when building new images,
-* marking specific revisions with release tags.
+  (instead of building interactively),
+* including the corresponding Dockerfile in a git repository,
+* adding the (short) commit hash as a tag when building new images.
 
 To this end, you may want to use a Makefile of the following kind:
 ```make
@@ -79,11 +96,6 @@ or the corresponding release tag (if defined via `make release VERSION=...`):
 ```
 docker pull registry.rdmrepo.icts.kuleuven.be/NAMESPACE/myimage:1.0
 ```
-
-> **_NOTE:_** A similar version control approach could also be applied when
-  building Docker images in an interactive manner (without Dockerfiles).
-  However, for reasons of clarity and reproducibility we strongly recommend
-  to build from Dockerfiles.
 
 
 ### Dockerhub
