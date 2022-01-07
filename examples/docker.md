@@ -108,7 +108,7 @@ and (hopefully) providing higher download speeds as well.
 
 To e.g. pull a `python:3.8-slim` image from Dockerhub via the mirror:
 ```
-docker pull dockerhub.ARTIFACTORY-URL/python:3.8-slim
+docker pull dockerhub.rdmrepo.icts.kuleuven.be/python:3.8-slim
 ```
 
 
@@ -131,7 +131,7 @@ mkdir -p $SINGULARITY_CACHEDIR $SINGULARITY_TMPDIR
 you can convert your remote Docker image to a local Singularity image (which
 will here be named `myimage_latest.sif`):
 ```
-singularity pull --docker-login docker://registry.ARTIFACTORY-URL/NAMESPACE/myimage
+singularity pull --docker-login docker://registry.rdmrepo.icts.kuleuven.be/NAMESPACE/myimage
 ```
 This will again prompt you for a USERNAME and API-KEY. You may also specify
 these by setting and exporting the corresponding `SINGULARITY_DOCKER_USERNAME`
