@@ -7,9 +7,9 @@ nav_order: 3
 With Artifactory, you can deploy your Conda packages to a Conda repository for sharing software packages within your team.
 
 To deploy your favourite software package using the Artifactory UI, visit the [online platform](https://rdmrepo.icts.kuleuven.be/ui/login/) and navigate to your <CONDA-REPOSITORY>.
-
+_______________
 TEST TEST TEST
-
+_______________
 ![image](figures/artifactory-conda_deploy1.png)
 
 
