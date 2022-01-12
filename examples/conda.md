@@ -6,18 +6,29 @@ nav_order: 3
 
 With Artifactory, you can deploy your Conda packages to a Conda repository for sharing software packages within your team.
 
-To deploy your favourite software package using the Artifactory UI, visit the [online platform](https://rdmrepo.icts.kuleuven.be/ui/login/) and navigate to your <CONDA-REPOSITORY>.
+To deploy your favourite software package using the Artifactory UI, visit the [online platform](https://rdmrepo.icts.kuleuven.be/ui/login/) and navigate to your \<CONDA-REPOSITORY\>. 
 
+![image](/figures/Conda_Repo_1_edit.png)
 
-Click "deploy" to deploy your `conda-package.tar.bz2` in this Conda repository. A window will pop-up where you can select your conda package. Make sure that the "Target Path" points to either the linux-64 or the noarch subdirectory before deploying the package. 
+Click "deploy" to deploy your `conda-package.tar.bz2` in this Conda repository.
+
+![image](/figures/Conda_Repo_2_edit.png)
+
+A window will pop-up where you can select your conda package. 
+
+![image](/figures/Conda_Deploy_1_edit.png)
+
+Make sure that the "Target Path" points to either the linux-64 or the noarch subdirectory before deploying the package. 
+
+![image](/figures/Conda_Deploy_2_edit.png)
+
 
 Alternatively you can use `curl -u <USERNAME>:<API-KEY> -T conda-package.tar.bz2 -X PUT  https://rdmrepo.icts.kuleuven.be/artifactory/<REPOSITORY-NAME>linux-64` 
 
 *e.g.*
-
 `curl -u u0123456:sb8NAZl53g7tUz5IvbWMGRTJXgtk6GKH96ICImcnwhjyFPTj0iZDymKjVWHmLxRHJsaSdPrT8 -T ujson-4.2.0-py39h295c915_0.tar.bz2 -X PUT https://@rdmrepo.icts.kuleuven.be/artifactory/conda-local/linux-64/`
 
-Where the conda <REPOSITORY-NAME> is in this case: conda-local/
+Where the conda \<REPOSITORY-NAME\> is in this case: `conda-local/`
 
 Conda packages should be deployed in either the linux-64 or the noarch subdirectory of this conda repository. In this case, the ujson package will be deployed in the linux-64 subdirectory.
 
