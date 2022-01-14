@@ -13,10 +13,16 @@ Uploading to and downloading from the repository can be done with the `curl`
 command. To create and upload a small text file, execute
 ```
 echo "Hello, World" > test.txt
-curl -u USERNAME:API-KEY -T test.txt -X PUT https://ARTIFACTORY-URL/artifactory/REPOSITORY-NAME/test.txt
+curl -u <USERNAME>:<API-KEY> -T test.txt -X PUT https://rdmrepo.icts.kuleuven.be/artifactory/<REPOSITORY-NAME>/test.txt
 ```
 You can then download it as follows (e.g. on another location and/or a different
 machine):
 ```
-curl -u USERNAME:API-KEY -O https://ARTIFACTORY-URL/artifactory/REPOSITORY-NAME/test.txt
+curl -u <USERNAME>:<API-KEY> -O https://rdmrepo.icts.kuleuven.be/artifactory/<REPOSITORY-NAME>/test.txt
 ```
+
+*e.g.*
+```
+curl -u u0123456:sb8NAZl53g7tUz5IvbWMGRTJXgtk6GKH96ICImcnwhjyFPTj0iZDymKjVWHmLxRHJsaSdPrT8 -O https://rdmrepo.icts.kuleuven.be/artifactory/generic-local/test.txt
+```
+Where the \<REPOSITORY-NAME\> is: `generic-local/`

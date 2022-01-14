@@ -21,21 +21,23 @@ myimage                                               latest     ee7033aa2ab2   
 Before uploading to Artifactory, you will need to add tags referring to the
 registry as well as the version of your image, e.g.:
 ```
-docker tag myimage registry.rdmrepo.icts.kuleuven.be/NAMESPACE/myimage:latest
-docker tag myimage registry.rdmrepo.icts.kuleuven.be/NAMESPACE/myimage:1.0
+docker tag myimage registry.rdmrepo.icts.kuleuven.be<NAMESPACE>myimage:latest
+docker tag myimage registry.rdmrepo.icts.kuleuven.be<NAMESPACE>myimage:1.0
 ```
+Where \<NAMESPACE\> could be for example `dtai` (Declaratieve Talen en Artificiële Intelligenti)
+
 To upload the tagged images to Artifactory:
 ```
-docker login registry.rdmrepo.icts.kuleuven.be -u USERNAME -p API-KEY
+docker login registry.rdmrepo.icts.kuleuven.be -u <USERNAME> -p <API-KEY>
 
-docker push registry.rdmrepo.icts.kuleuven.be/NAMESPACE/myimage:latest
-docker push registry.rdmrepo.icts.kuleuven.be/NAMESPACE/myimage:1.0
+docker push registry.rdmrepo.icts.kuleuven.be<NAMESPACE>myimage:latest
+docker push registry.rdmrepo.icts.kuleuven.be<NAMESPACE>myimage:1.0
 # or:
-docker push --all-tags registry.rdmrepo.icts.kuleuven.be/NAMESPACE/myimage
+docker push --all-tags registry.rdmrepo.icts.kuleuven.be<NAMESPACE>myimage
 ```
 To download a specific version:
 ```
-docker pull registry.rdmrepo.icts.kuleuven.be/NAMESPACE/myimage:1.0
+docker pull registry.rdmrepo.icts.kuleuven.be<NAMESPACE>myimage:1.0
 ```
 
 ### Version control
@@ -59,7 +61,7 @@ In addition to the above, you can apply more advanced version control by:
 To this end, you may want to use a Makefile of the following kind:
 ```make
 REGISTRY := registry.rdmrepo.icts.kuleuven.be
-IMAGE := ${REGISTRY}/NAMESPACE/myimage
+IMAGE := ${REGISTRY}<NAMESPACE>myimage
 HASH := $$(git rev-parse --short HEAD)
 
 build:
@@ -90,11 +92,11 @@ help:
 After pushing your image to Artifactory with e.g. `make build login push`,
 you can then pull specific versions by appending the corresponding commit hash,
 ```
-docker pull registry.rdmrepo.icts.kuleuven.be/NAMESPACE/myimage:ed4f506
+docker pull registry.rdmrepo.icts.kuleuven.be<NAMESPACE>myimage:ed4f506
 ```
 or the corresponding release tag (if defined via `make release VERSION=...`):
 ```
-docker pull registry.rdmrepo.icts.kuleuven.be/NAMESPACE/myimage:1.0
+docker pull registry.rdmrepo.icts.kuleuven.be<NAMESPACE>myimage:1.0
 ```
 
 
@@ -131,9 +133,9 @@ mkdir -p $SINGULARITY_CACHEDIR $SINGULARITY_TMPDIR
 you can convert your remote Docker image to a local Singularity image (which
 will here be named `myimage_latest.sif`):
 ```
-singularity pull --docker-login docker://registry.rdmrepo.icts.kuleuven.be/NAMESPACE/myimage
+singularity pull --docker-login docker://registry.rdmrepo.icts.kuleuven.be<NAMESPACE>myimage
 ```
-This will again prompt you for a USERNAME and API-KEY. You may also specify
+This will again prompt you for a \<USERNAME\> and \<API-KEY\>. You may also specify
 these by setting and exporting the corresponding `SINGULARITY_DOCKER_USERNAME`
 and `SINGULARITY_DOCKER_PASSWORD` environment variables.
 

@@ -27,7 +27,6 @@ Alternatively you can use `curl -u <USERNAME>:<API-KEY> -T conda-package.tar.bz2
 
 *e.g.*
 `curl -u u0123456:sb8NAZl53g7tUz5IvbWMGRTJXgtk6GKH96ICImcnwhjyFPTj0iZDymKjVWHmLxRHJsaSdPrT8 -T ujson-4.2.0-py39h295c915_0.tar.bz2 -X PUT https://@rdmrepo.icts.kuleuven.be/artifactory/conda-local/linux-64/`
-
 Where the conda \<REPOSITORY-NAME\> is in this case: `conda-local/`
 
 Conda packages should be deployed in either the linux-64 or the noarch subdirectory of this conda repository. In this case, the ujson package will be deployed in the linux-64 subdirectory.
