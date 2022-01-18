@@ -13,10 +13,8 @@ and make use of the following conventions:
 
 * \<API-KEY\>: a valid API key (see the [Platform](../platform) page)
 * \<USERNAME\>: your u-account (`u0xxxxxx`)
-* \<NAMESPACE\>: namespaces are used in certain repositories to distinguish
+* \<NAMESPACE\>: namespaces are used in the Docker registry to distinguish
   between different user groups. Valid NAMESPACEs then correspond to the
   name(s) of the Artifactory group(s) associated with your account.
-* \<ARTIFACTORY-URL\>: the KU Leuven Artifactory main page (i.e.
-  `rdmrepo.icts.kuleuven.be`)
-* \<REPOSITORY-NAME\>: the name of an Artifactory repository (of the relevant
+* \<REPOSITORY-NAME\>: the name of an Artifactory repository (of the relevant 
   type) to which you have access.
