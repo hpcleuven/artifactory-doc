@@ -33,7 +33,6 @@ Conda packages should be deployed in either the linux-64 or the noarch subdirect
 
 
 To install this software package directly from artifactory, add the following lines to your .condarc file in your home directory and replace the placeholders:
-
 ```
 channel_alias: https://<USERNAME>:<API-KEY>@rdmrepo.icts.kuleuven.be/artifactory/api/conda/<REPOSITORY-NAME>
 channels:
@@ -41,6 +40,9 @@ channels:
 default_channels:
   - https://<USERNAME>:<API-KEY>@rdmrepo.icts.kuleuven.be/artifactory/api/conda/<REPOSITORY-NAME>
 ```
+Since you are storing your \<API-KEY\> in this file, it is important to set secure file permissions. 
+This can be done with `chmod 600 .condarc`.
+
 Now you can activate your local Conda environment and use `conda install <conda-package>` to install your Conda package inside your local Conda environment.
   
   
