@@ -84,7 +84,7 @@ https://docs.gitlab.com/ee/ci/variables/#mask-a-cicd-variable).
 A CI job will then be triggered after adding a new tag and pushing your
 changes, e.g.
 ```bash
-git tag v1.0
+git tag v1.0  # the same tag will also be applied to the image
 git push
 git push --tags
 ```
