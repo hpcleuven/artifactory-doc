@@ -77,6 +77,10 @@ You can then securely define the `CI_APPLICATION_...` variables in the
 * `CI_APPLICATION_USER`: (virtual) Artifactory user (**must be masked!**)
 * `CI_APPLICATION_PASSWORD`: API key of the (virtual) user (**must be masked!**)
 
+More information about masking Gitlab CI variables can be found on
+[docs.gitlab.com/ee/ci/variables/#mask-a-cicd-variable](
+https://docs.gitlab.com/ee/ci/variables/#mask-a-cicd-variable).
+
 A CI job will then be triggered after adding a new tag and pushing your
 changes, e.g.
 ```bash
