@@ -59,23 +59,22 @@ build:
   script:
     # Create a Docker configuration file holding the authentication info:
     - mkdir -p /kaniko/.docker
-    - echo "{\"auths\":{\"${CI_APPLICATION_URL}\":{\"auth\":\"$(echo -n ${CI_APPLICATION_USER}:${CI_APPLICATION_PASSWORD} | base64 | tr -d '\n')\"}}}" > /kaniko/.docker/config.json
+    - echo "{\"auths\":{\"${CI_REGISTRY_URL}\":{\"auth\":\"$(echo -n ${CI_REGISTRY_USER}:${CI_REGISTRY_PASSWORD} | base64 | tr -d '\n')\"}}}" > /kaniko/.docker/config.json
     # Let kaniko build the image and push it to Artifactory:
     - >-
       /kaniko/executor
       --context "${CI_PROJECT_DIR}"
       --dockerfile "${CI_PROJECT_DIR}/Dockerfile"
-      --destination "${CI_APPLICATION_URL}/${CI_APPLICATION_NAMESPACE}/${CI_APPLICATION_IMAGE}:${CI_COMMIT_TAG}"
+      --destination "${CI_REGISTRY_IMAGE}:${CI_COMMIT_TAG}"
 ```
 
-You can then securely define the `CI_APPLICATION_...` variables in the
+You can then securely define the `CI_REGISTRY_...` variables in the
 `Settings > CI/CD > Variables` section of the Gitlab project:
 
-* `CI_APPLICATION_URL`: registry.rdmrepo.icts.kuleuven.be
-* `CI_APPLICATION_IMAGE`: name of the Docker image
-* `CI_APPLICATION_NAMESPACE`: namespace in the Docker registry on Artifactory
-* `CI_APPLICATION_USER`: (virtual) Artifactory user (**must be masked!**)
-* `CI_APPLICATION_PASSWORD`: API key of the (virtual) user (**must be masked!**)
+* `CI_REGISTRY_URL`: registry.rdmrepo.icts.kuleuven.be
+* `CI_REGISTRY_IMAGE`: registry.rdmrepo.icts.kuleuven.be/yournamespace/yourimagename
+* `CI_REGISTRY_USER`: (virtual) Artifactory user (**must be masked!**)
+* `CI_REGISTRY_PASSWORD`: API key of the (virtual) user (**must be masked!**)
 
 More information about masking Gitlab CI variables can be found on
 [docs.gitlab.com/ee/ci/variables/#mask-a-cicd-variable](
