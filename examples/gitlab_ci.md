@@ -35,10 +35,6 @@ whenever a new tag is pushed to the `main` branch. For building the image we
 choose the `kaniko` tool (see [docs.gitlab.com/ee/ci/docker/using_kaniko.html](
 https://docs.gitlab.com/ee/ci/docker/using_kaniko.html)).
 
-> **_NOTE:_** This is a basic example -- more advanced setups can be
-found at [gitlab.kuleuven.be/gitlab/gitlab-ci](
-https://gitlab.kuleuven.be/gitlab/gitlab-ci).
-
 > **_NOTE:_** KU Leuven Gitlab repositories can also use the
 [Gitlab Container Registry](
 https://docs.gitlab.com/ee/user/packages/container_registry) for storing images.
@@ -89,3 +85,35 @@ git push --tags
 ```
 If the job succeeds, a new version of the image will have appeared in
 Artifactory, tagged as `v1.0`.
+
+
+### A more advanced setup with Docker
+
+The above example is a basic one -- more advanced setups can be
+found at [gitlab.kuleuven.be/gitlab/gitlab-ci](
+https://gitlab.kuleuven.be/gitlab/gitlab-ci). The [Build-Kaniko.gitlab-ci.yml](
+https://gitlab.kuleuven.be/gitlab/gitlab-ci/-/blob/master/templates/Jobs/Build-Kaniko.gitlab-ci.yml)
+template, for example, will trigger a build if a tag or commit is pushed
+to any branch. Build artifacts from different branches will then be pushed
+to different "subspaces". The full path to an image for a particular
+commit/branch combination will then look like this:
+```bash
+registry.rdmrepo.icts.kuleuven.be/yournamespace/yourimage/yourbranch:yourcommithash
+```
+with the `latest` tag pointing to the image of the latest commit of that branch:
+```bash
+registry.rdmrepo.icts.kuleuven.be/yournamespace/yourimage/yourbranch:latest
+```
+
+To use this setup in your CI jobs, the following `.gitlab-ci.yml` suffices:
+```yaml
+stages:
+  - build
+
+include:
+  - project: gitlab/gitlab-ci
+    ref: master
+    file: /templates/Jobs/Build-Kaniko.gitlab-ci.yml
+```
+This requires the definition of the same four `CI_REGISTRY_...` CI variables
+as in the basic example above.
