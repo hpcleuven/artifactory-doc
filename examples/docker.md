@@ -99,6 +99,10 @@ or the corresponding release tag (if defined via `make release VERSION=...`):
 docker pull registry.rdmrepo.icts.kuleuven.be/<NAMESPACE>/myimage:1.0
 ```
 
+> **_NOTE:_** If you are using the KU Leuven Gitlab service for your project,
+you can also incorporate image version control in your CI workflow, as described
+on the [Gitlab CI](./gitlab_ci) page.
+
 
 ### Dockerhub
 

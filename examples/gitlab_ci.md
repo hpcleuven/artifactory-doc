@@ -35,10 +35,6 @@ whenever a new tag is pushed to the `main` branch. For building the image we
 choose the `kaniko` tool (see [docs.gitlab.com/ee/ci/docker/using_kaniko.html](
 https://docs.gitlab.com/ee/ci/docker/using_kaniko.html)).
 
-> **_NOTE:_** This is a basic example -- more advanced setups can be
-found at [gitlab.kuleuven.be/gitlab/gitlab-ci](
-https://gitlab.kuleuven.be/gitlab/gitlab-ci).
-
 > **_NOTE:_** KU Leuven Gitlab repositories can also use the
 [Gitlab Container Registry](
 https://docs.gitlab.com/ee/user/packages/container_registry) for storing images.
@@ -59,23 +55,22 @@ build:
   script:
     # Create a Docker configuration file holding the authentication info:
     - mkdir -p /kaniko/.docker
-    - echo "{\"auths\":{\"${CI_APPLICATION_URL}\":{\"auth\":\"$(echo -n ${CI_APPLICATION_USER}:${CI_APPLICATION_PASSWORD} | base64 | tr -d '\n')\"}}}" > /kaniko/.docker/config.json
+    - echo "{\"auths\":{\"${CI_REGISTRY_URL}\":{\"auth\":\"$(echo -n ${CI_REGISTRY_USER}:${CI_REGISTRY_PASSWORD} | base64 | tr -d '\n')\"}}}" > /kaniko/.docker/config.json
     # Let kaniko build the image and push it to Artifactory:
     - >-
       /kaniko/executor
       --context "${CI_PROJECT_DIR}"
       --dockerfile "${CI_PROJECT_DIR}/Dockerfile"
-      --destination "${CI_APPLICATION_URL}/${CI_APPLICATION_NAMESPACE}/${CI_APPLICATION_IMAGE}:${CI_COMMIT_TAG}"
+      --destination "${CI_REGISTRY_IMAGE}:${CI_COMMIT_TAG}"
 ```
 
-You can then securely define the `CI_APPLICATION_...` variables in the
+You can then securely define the `CI_REGISTRY_...` variables in the
 `Settings > CI/CD > Variables` section of the Gitlab project:
 
-* `CI_APPLICATION_URL`: registry.rdmrepo.icts.kuleuven.be
-* `CI_APPLICATION_IMAGE`: name of the Docker image
-* `CI_APPLICATION_NAMESPACE`: namespace in the Docker registry on Artifactory
-* `CI_APPLICATION_USER`: (virtual) Artifactory user (**must be masked!**)
-* `CI_APPLICATION_PASSWORD`: API key of the (virtual) user (**must be masked!**)
+* `CI_REGISTRY_URL`: registry.rdmrepo.icts.kuleuven.be
+* `CI_REGISTRY_IMAGE`: registry.rdmrepo.icts.kuleuven.be/yournamespace/yourimagename
+* `CI_REGISTRY_USER`: (virtual) Artifactory user (**must be masked!**)
+* `CI_REGISTRY_PASSWORD`: API key of the (virtual) user (**must be masked!**)
 
 More information about masking Gitlab CI variables can be found on
 [docs.gitlab.com/ee/ci/variables/#mask-a-cicd-variable](
@@ -90,3 +85,35 @@ git push --tags
 ```
 If the job succeeds, a new version of the image will have appeared in
 Artifactory, tagged as `v1.0`.
+
+
+### A more advanced setup with Docker
+
+The above example is a basic one -- more advanced setups can be
+found at [gitlab.kuleuven.be/gitlab/gitlab-ci](
+https://gitlab.kuleuven.be/gitlab/gitlab-ci). The [Build-Kaniko.gitlab-ci.yml](
+https://gitlab.kuleuven.be/gitlab/gitlab-ci/-/blob/master/templates/Jobs/Build-Kaniko.gitlab-ci.yml)
+template, for example, will trigger a build if a tag or commit is pushed
+to any branch. Build artifacts from different branches will then be pushed
+to different "subspaces". The full path to an image for a particular
+commit/branch combination will then look like this:
+```bash
+registry.rdmrepo.icts.kuleuven.be/yournamespace/yourimage/yourbranch:yourcommithash
+```
+with the `latest` tag pointing to the image of the latest commit of that branch:
+```bash
+registry.rdmrepo.icts.kuleuven.be/yournamespace/yourimage/yourbranch:latest
+```
+
+To use this setup in your CI jobs, the following `.gitlab-ci.yml` suffices:
+```yaml
+stages:
+  - build
+
+include:
+  - project: gitlab/gitlab-ci
+    ref: master
+    file: /templates/Jobs/Build-Kaniko.gitlab-ci.yml
+```
+This requires the definition of the same four `CI_REGISTRY_...` CI variables
+as in the basic example above.
