@@ -55,7 +55,7 @@ build:
   script:
     # Create a Docker configuration file holding the authentication info:
     - mkdir -p /kaniko/.docker
-    - echo "{\"auths\":{\"${CI_REGISTRY_URL}\":{\"auth\":\"$(echo -n ${CI_REGISTRY_USER}:${CI_REGISTRY_PASSWORD} | base64 | tr -d '\n')\"}}}" > /kaniko/.docker/config.json
+    - echo "{\"auths\":{\"${CI_REGISTRY}\":{\"auth\":\"$(echo -n ${CI_REGISTRY_USER}:${CI_REGISTRY_PASSWORD} | base64 | tr -d '\n')\"}}}" > /kaniko/.docker/config.json
     # Let kaniko build the image and push it to Artifactory:
     - >-
       /kaniko/executor
@@ -67,7 +67,7 @@ build:
 You can then securely define the `CI_REGISTRY_...` variables in the
 `Settings > CI/CD > Variables` section of the Gitlab project:
 
-* `CI_REGISTRY_URL`: registry.rdmrepo.icts.kuleuven.be
+* `CI_REGISTRY`: registry.rdmrepo.icts.kuleuven.be
 * `CI_REGISTRY_IMAGE`: registry.rdmrepo.icts.kuleuven.be/yournamespace/yourimagename
 * `CI_REGISTRY_USER`: (virtual) Artifactory user (**must be masked!**)
 * `CI_REGISTRY_PASSWORD`: API key of the (virtual) user (**must be masked!**)
