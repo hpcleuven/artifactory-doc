@@ -24,7 +24,7 @@ registry as well as the version of your image, e.g.:
 docker tag myimage registry.rdmrepo.icts.kuleuven.be/<NAMESPACE>/myimage:latest
 docker tag myimage registry.rdmrepo.icts.kuleuven.be/<NAMESPACE>/myimage:1.0
 ```
-Where \<NAMESPACE\> could be for example `dtai` (Declaratieve Talen en Artificiële Intelligenti)
+where \<NAMESPACE\> could for example be `dtai` (Declaratieve Talen en Artificiële Intelligentie).
 
 To upload the tagged images to Artifactory:
 ```
