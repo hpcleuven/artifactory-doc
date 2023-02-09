@@ -118,37 +118,37 @@ docker pull dockerhub.rdmrepo.icts.kuleuven.be/python:3.8-slim
 ```
 
 
-### Containers on HPC with Singularity
+### Containers on HPC with Apptainer
 
-Due to the need for superuser privileges, Docker can typically not be used on
-HPC clusters. [Singularity](
-https://sylabs.io/singularity/) ([VSC documentation](
-https://docs.vscentrum.be/en/latest/software/singularity.html)) does not have
-this limitation and is available on the login and compute nodes of both Genius
-and BrENIAC.
+Due to the need for superuser privileges, Docker cannot typically be used on
+HPC clusters. [Apptainer](
+https://http://apptainer.org/) ([VSC documentation](
+https://docs.vscentrum.be/en/latest/software/singularity.html)), formerly known
+as Singularity, does not have this limitation and is available on both login and
+compute nodes of the HPC clusters hosted at KU Leuven.
 
 After creating appropriate temporary directories,
 ```
 cd $VSC_SCRATCH
-export SINGULARITY_CACHEDIR=$VSC_SCRATCH/singularity_cache
-export SINGULARITY_TMPDIR=$VSC_SCRATCH/singularity_tmp
-mkdir -p $SINGULARITY_CACHEDIR $SINGULARITY_TMPDIR
+export APPTAINER_CACHEDIR=$VSC_SCRATCH/apptainer_cache
+export APPTAINER_TMPDIR=$VSC_SCRATCH/apptainer_tmp
+mkdir -p $APPTAINER_CACHEDIR $APPTAINER_TMPDIR
 ```
-you can convert your remote Docker image to a local Singularity image (which
+you can convert your remote Docker image to a local Apptainer image (which
 will here be named `myimage_latest.sif`):
 ```
-singularity pull --docker-login docker://registry.rdmrepo.icts.kuleuven.be<NAMESPACE>myimage
+apptainer pull --docker-login docker://registry.rdmrepo.icts.kuleuven.be<NAMESPACE>myimage
 ```
 This will again prompt you for a \<USERNAME\> and \<API-KEY\>. You may also specify
-these by setting and exporting the corresponding `SINGULARITY_DOCKER_USERNAME`
-and `SINGULARITY_DOCKER_PASSWORD` environment variables.
+these by setting and exporting the corresponding `APPTAINER_DOCKER_USERNAME`
+and `APPTAINER_DOCKER_PASSWORD` environment variables.
 
 You can now start containers (also in your compute jobs) to execute your
 application of choice, e.g.:
 ```
-singularity exec myimage_latest.sif echo "Hello, World"
+apptainer exec myimage_latest.sif echo "Hello, World"
 ```
 
-> **_NOTE:_**  Artifactory does not currently support Singularity registries.
-  If you want to get Singularity image files into Artifactory, you will need
+> **_NOTE:_**  Artifactory does not currently support Apptainer registries.
+  If you want to get Apptainer image files into Artifactory, you will need
   to use a [Generic repository](./generic) instead.
