@@ -21,3 +21,10 @@ repositories to your Favorites.
 API keys are used for authentication when interacting with Artifactory from
 the command line. You can generate such keys on your user profile page
 ("Welcome, u0xxxxxx" > "Edit profile").
+
+### Public repositories
+
+https://rdmrepo.icts.kuleuven.be is only accessible for users with either
+a KU Leuven or a VSC account. To access repositories with public read access,
+external collaborators need to use https://rdmrepo-proxy.icts.kuleuven.be
+instead.
