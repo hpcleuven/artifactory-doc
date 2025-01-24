@@ -137,7 +137,7 @@ mkdir -p $APPTAINER_CACHEDIR $APPTAINER_TMPDIR
 you can convert your remote Docker image to a local Apptainer image (which
 will here be named `myimage_latest.sif`):
 ```
-apptainer pull --docker-login docker://registry.rdmrepo.icts.kuleuven.be<NAMESPACE>myimage
+apptainer pull --docker-login docker://registry.rdmrepo.icts.kuleuven.be/<NAMESPACE>/myimage
 ```
 This will again prompt you for a \<USERNAME\> and \<API-KEY\>. You may also specify
 these by setting and exporting the corresponding `APPTAINER_DOCKER_USERNAME`
